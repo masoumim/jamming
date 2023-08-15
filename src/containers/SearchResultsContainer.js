@@ -3,7 +3,7 @@
 
 import React, { useState } from "react";
 import { generateId } from "@/utilities";
-import Tracklist from "@/components/Tracklist";
+import SearchResults from "@/components/SearchResults";
 
 function SearchResultsContainer() {
 
@@ -32,9 +32,9 @@ function SearchResultsContainer() {
     // State variables for the list of tracks returned by API
     const [fetchedTracks, setFetchedTracks] = useState(tracks);
 
-    // Return the fetchedTracks state variable to Tracklist component
+    // Return the fetchedTracks state variable to the SearchResults component
     return (
-        <Tracklist tracks={fetchedTracks} />
+        <SearchResults tracks={fetchedTracks} />
     );
 }
 
