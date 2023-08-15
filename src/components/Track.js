@@ -1,9 +1,12 @@
-// Track.js - This component will display information about a track: Artist, Album, Song title etc.
-function Track(){
+// Track.js - This component will display information about a track: Name, Artist, Album
+function Track({name, artist, album}){
+        
     return (
-        <div>
-            *Track info goes here*
-        </div>
+        <li className="track">
+            <p>Name:{name}</p>
+            <p>Artist:{artist}</p>
+            <p>Album:{album}</p>
+        </li>
     );
 }
 

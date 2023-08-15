@@ -6,8 +6,7 @@ import Track from "./Track";
 function Playlist(){
     return (
         <div>
-        *Playlists go here*
-        <Track/>
+        *Playlists go here*        
         </div>
     );
 }

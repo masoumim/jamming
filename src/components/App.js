@@ -4,13 +4,13 @@
 // Import the Presentational Components
 import SearchBar from "./SearchBar";
 import Playlist from "./Playlist";
-import Tracklist from "./Tracklist";
+import SearchResultsContainer from "@/containers/SearchResultsContainer";
 
 function App() {
     return (
         <div>
             <SearchBar />
-            <Tracklist/>                
+            <SearchResultsContainer/>            
             <Playlist/>                    
         </div>
     );

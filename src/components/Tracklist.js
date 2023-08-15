@@ -2,12 +2,16 @@
 
 import Track from "./Track";
 
-function Tracklist(){
+function Tracklist({ tracks }) {
+
     return (
-        <div>
-            Results:
-            *Tracklist goes here*
-            <Track/>
+        <div className="Tracklist">
+            <h2>Results:</h2>            
+            <ul style={{listStyleType: "none"}}>
+                {tracks.map((track) => (
+                    <Track key={track.id} name={track.name} artist={track.artist} album={track.album} />
+                ))}
+            </ul>
         </div>
     );
 }
