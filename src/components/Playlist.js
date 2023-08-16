@@ -1,7 +1,9 @@
 // Playlist.js - This component will display the playlists created by the user.
 // It will show a list of playlists (if any exist) and if clicked, will display the tracks in the list.
 
-function Playlist({ onInputChange, userInput, onSubmitHandler, playlists }) {
+import Tracklist from "./Tracklist";
+
+function Playlist({ onInputChange, userInput, onSubmitHandler, playlists, onClickPlaylist }) {
     return (
         <div className="Playlist">
             <form onSubmit={onSubmitHandler}>
@@ -10,7 +12,13 @@ function Playlist({ onInputChange, userInput, onSubmitHandler, playlists }) {
                 <button type="submit">Create Playlist</button>
             </form>
             <h2>Your playlists:</h2>
-            <p>{playlists}</p>
+            <ul style={{ listStyleType: "none" }}>
+                {playlists.map((playlist) => (
+                    <li key={playlist.playlistId} id={playlist.playlistName} className={playlist.playlistName} onClick={onClickPlaylist}>                        
+                        {playlist.playlistName}                  
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 }
