@@ -4,6 +4,7 @@
 import React, { useState } from "react";
 import { generateId } from "@/utilities";
 import SearchResults from "@/components/SearchResults";
+import { addSongHandler } from "./PlaylistContainer";
 
 function SearchResultsContainer() {
 
@@ -34,7 +35,7 @@ function SearchResultsContainer() {
 
     // Return the fetchedTracks state variable to the SearchResults component
     return (
-        <SearchResults tracks={fetchedTracks} />
+        <SearchResults tracks={fetchedTracks} onAddSong={addSongHandler}/>
     );
 }
 

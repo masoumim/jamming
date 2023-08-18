@@ -6,9 +6,9 @@ function Playlist({ playlist, isActive, onShow }) {
   return (
     <div>
       <h2>
-        <span onClick={onShow}>{playlist.playlistName}</span>
+        <span style={ isActive ? {color: "green"} : {} } onClick={onShow}>{playlist.playlistName}</span>
       </h2>
-      {isActive ? (<Tracklist tracks={playlist.tracks} />) : ("")}
+      {isActive && playlist.tracks ? (<Tracklist tracks={playlist.tracks} buttonType={"remove"}/>) : ("")}
     </div>
   );
 };

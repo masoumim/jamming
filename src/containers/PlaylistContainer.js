@@ -4,6 +4,13 @@ import React, { useState } from "react";
 import { generateId } from "@/utilities";
 import Playlists from "@/components/Playlists";
 
+
+
+// Handle adding song to playlist
+export function addSongHandler(track) {
+    console.log("Hello!!!");
+}
+
 function PlaylistContainer() {
 
     // Mock data for playlists
@@ -78,9 +85,10 @@ function PlaylistContainer() {
         }
         setPlaylists((playlists) => [...playlists, newPlaylist]);
     }
-
-    return (                
-        <Playlists onInputChange={handleUserInput} userInput={userInput} onSubmitHandler={handleSubmit} playlists={playlists}/>
+    return (
+        <>
+            <Playlists onInputChange={handleUserInput} userInput={userInput} onSubmitHandler={handleSubmit} playlists={playlists} />
+        </>
     );
 }
 

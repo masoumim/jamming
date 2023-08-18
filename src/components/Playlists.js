@@ -1,7 +1,6 @@
 // Playlist.js - This component will display the playlists created by the user.
 
 import { useState } from "react";
-import { generateId } from "@/utilities";
 import Playlist from "./Playlist";
 
 function Playlists({ onInputChange, userInput, onSubmitHandler, playlists }) {
