@@ -1,12 +1,8 @@
 // Playlist.js - This component will display the playlists created by the user.
 
-import { useState } from "react";
 import Playlist from "./Playlist";
 
-function Playlists({ onInputChange, userInput, onSubmitHandler, playlists }) {
-    // State variables to control which playlist is currently open / visible 
-    const [activeIndex, setActiveIndex] = useState();
-    
+function Playlists({ onInputChange, userInput, onSubmitHandler, playlists, activeIndex, setActiveIndex}) {                
     return (
         <div className="Playlist">
             <form onSubmit={onSubmitHandler}>
@@ -17,7 +13,7 @@ function Playlists({ onInputChange, userInput, onSubmitHandler, playlists }) {
             <h2>Your playlists:</h2>
             <div id="playlists">
                 {playlists.map((playlist) => (
-                    <Playlist key={playlist.playlistId} playlist={playlist} isActive={activeIndex === playlist.playlistId} onShow={() => setActiveIndex(playlist.playlistId)}/>                                     
+                    <Playlist key={playlist.playlistId} playlist={playlist} isActive={activeIndex === playlist.playlistId} onShow={() => setActiveIndex(playlist.playlistId)}/>                               
                 ))}                
             </div>
         </div>
