@@ -94,31 +94,23 @@ function AppContainer() {
     const [activeIndex, setActiveIndex] = useState();
 
     // Handle adding song from SearchResults Tracklist to current Playlist Tracklist    
-    function addSongHandler(id, name, artist, album) {
+    function addSongHandler(track) {
         
-        // Create new track object
-        const addedTrack = {
-            id: id,
-            name: name,
-            artist: artist,
-            album: album
-        }
-
         // Map over the playlists state array
-        const updatedArray = playlists.map(playlist => {            
+        const updatedArray = playlists.map(playlist => {
             // If playlist in the state array matches currently open playlist      
             // AND that playlist doesn't already contain the addedTrack      
-            if(playlist.playlistId === activeIndex && !playlist.tracks.some(e => e.id === id)){                
-                
+            if (playlist.playlistId === activeIndex && !playlist.tracks.some(e => e.id === track.id)) {
+
                 // Create new playlist object with updated tracks array
                 const updatedPlaylist = {
                     playlistName: playlist.playlistName,
                     playlistId: playlist.playlistId,
-                    tracks: [...playlist.tracks, addedTrack]
-                }                                
+                    tracks: [...playlist.tracks, track]
+                }
                 return updatedPlaylist;
             }
-            else{
+            else {
                 return playlist;
             }
         });

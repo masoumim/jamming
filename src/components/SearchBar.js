@@ -3,7 +3,7 @@ function SearchBar() {
     return (
         <form>
             <label htmlFor="track">Track</label>
-            <input name="track" type="text"></input>
+            <input id="track" name="track" type="text"></input>
         </form>
     );
 }

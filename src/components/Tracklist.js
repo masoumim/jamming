@@ -9,7 +9,7 @@ function Tracklist({ tracks, buttonType, onAddSong }) {
         <div className="Tracklist">                      
             <ul style={{listStyleType: "none"}}>
                 {tracks.map((track) => (                    
-                    <Track key={track.id} id={track.id} name={track.name} artist={track.artist} album={track.album} buttonType={buttonType} onAddSong={onAddSong}/>
+                    <Track key={track.id} track={track} buttonType={buttonType} onAddSong={onAddSong}/>
                 ))}
             </ul>
         </div>

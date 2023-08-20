@@ -1,4 +1,4 @@
-// Playlist.js - This component will display the playlists created by the user.
+// Playlist.js - This component will display the playlists created by the user as well as an input field with a button for adding new playlists
 
 import Playlist from "./Playlist";
 
