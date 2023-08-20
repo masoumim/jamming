@@ -81,8 +81,8 @@ function AppContainer() {
         }
     ];
 
-    // State variables for user input
-    const [userInput, setUserInput] = useState("");
+    // State variables for user input of new playlist
+    const [newPlaylistInput, setNewPlaylistInput] = useState("");
 
     // State variables for playlists
     const [playlists, setPlaylists] = useState(playlistsArray);
@@ -95,8 +95,10 @@ function AppContainer() {
 
     // Handle adding track from SearchResults Tracklist to current Playlist Tracklist    
     function addTrackHandler(addTrack) {
+
         // Map over the playlists state array
         const updatedArray = playlists.map(playlist => {
+
             // If playlist in the state array matches currently open playlist      
             // AND that playlist doesn't already contain the track      
             if (playlist.playlistId === activeIndex && !playlist.tracks.some(e => e.id === addTrack.id)) {
@@ -119,8 +121,10 @@ function AppContainer() {
 
     // Handle removing track from current Playlist Tracklist
     function removeTrackHandler(removeTrack) {
+
         // Map over the playlists state array
         const updatedArray = playlists.map(playlist => {
+
             // If playlist in the state array matches currently open playlist      
             // AND that playlist contains the track      
             if (playlist.playlistId === activeIndex && playlist.tracks.some(e => e.id === removeTrack.id)) {
@@ -141,16 +145,16 @@ function AppContainer() {
         setPlaylists(updatedArray);
     }
 
-    // Updates the userInput state on every change to the input field
-    function handleUserInput(event) {
-        setUserInput(event.target.value);
+    // Updates the newPlaylistName state on every change to the input field
+    function handleNewPlaylistInput(event) {
+        setNewPlaylistInput(event.target.value);
     }
 
     // Handle new playlist form submission
-    function handleSubmit(event) {
-        event.preventDefault(); // Prevents the page from reloading (?)                
+    function handleNewPlaylistSubmit(event) {
+        event.preventDefault(); // Prevents the page from reloading on submit               
         const newPlaylist = {
-            playlistName: userInput,
+            playlistName: newPlaylistInput,
             playlistId: generateId(),
             tracks: []
         }
@@ -160,7 +164,7 @@ function AppContainer() {
     return (
         <>
             <SearchResults tracks={fetchedTracks} onAddTrack={addTrackHandler} />
-            <Playlists onInputChange={handleUserInput} userInput={userInput} onSubmitHandler={handleSubmit} playlists={playlists} activeIndex={activeIndex} setActiveIndex={setActiveIndex} onRemoveTrack={removeTrackHandler} />
+            <Playlists onNewPlaylistInputChange={handleNewPlaylistInput} newPlaylistInput={newPlaylistInput} onSubmitNewPlaylist={handleNewPlaylistSubmit} playlists={playlists} activeIndex={activeIndex} setActiveIndex={setActiveIndex} onRemoveTrack={removeTrackHandler} />
         </>
     );
 }
