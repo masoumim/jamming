@@ -141,7 +141,8 @@ function AppContainer() {
         event.preventDefault(); // Prevents the page from reloading (?)                
         const newPlaylist = {
             playlistName: userInput,
-            playlistId: generateId()
+            playlistId: generateId(),
+            tracks: []
         }
         setPlaylists((playlists) => [...playlists, newPlaylist]);
     }
