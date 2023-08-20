@@ -11,22 +11,22 @@ function AppContainer() {
     const playlistsArray = [
         {
             playlistName: "playlist1",
-            playlistId: generateId(),
+            playlistId: 1,
             tracks: [
                 {
-                    id: generateId(),
+                    id: 4,
                     name: "Song 4",
                     artist: "Artist 4",
                     album: "Album 4"
                 },
                 {
-                    id: generateId(),
+                    id: 5,
                     name: "Song 5",
                     artist: "Artist 5",
                     album: "Album 5"
                 },
                 {
-                    id: generateId(),
+                    id: 6,
                     name: "Song 6",
                     artist: "Artist 6",
                     album: "Album 6"
@@ -35,22 +35,22 @@ function AppContainer() {
         },
         {
             playlistName: "playlist2",
-            playlistId: generateId(),
+            playlistId: 2,
             tracks: [
                 {
-                    id: generateId(),
+                    id: 7,
                     name: "Song 7",
                     artist: "Artist 7",
                     album: "Album 7"
                 },
                 {
-                    id: generateId(),
+                    id: 8,
                     name: "Song 8",
                     artist: "Artist 8",
                     album: "Album 8"
                 },
                 {
-                    id: generateId(),
+                    id: 9,
                     name: "Song 9",
                     artist: "Artist 9",
                     album: "Album 9"
@@ -62,19 +62,19 @@ function AppContainer() {
     // Create a temporary hardcoded array of tracks to mock data returned by API
     const tracks = [
         {
-            id: generateId(),
+            id: 1,
             name: "Song 1",
             artist: "Artist 1",
             album: "Album 1"
         },
         {
-            id: generateId(),
+            id: 2,
             name: "Song 2",
             artist: "Artist 2",
             album: "Album 2"
         },
         {
-            id: generateId(),
+            id: 3,
             name: "Song 3",
             artist: "Artist 3",
             album: "Album 3"
@@ -93,13 +93,41 @@ function AppContainer() {
     // State variables to store the playlistId of currently open playlist
     const [activeIndex, setActiveIndex] = useState();
 
-    // TODO: Handle adding song from SearchResults Tracklist to current Playlist Tracklist
+    // Handle adding song from SearchResults Tracklist to current Playlist Tracklist    
     function addSongHandler(id, name, artist, album) {
-        console.log(`id: ${id}, name: ${name}, artist: ${artist}, album: ${album}, playlist: ${activeIndex}`);
+        
+        // Create new track object
+        const addedTrack = {
+            id: id,
+            name: name,
+            artist: artist,
+            album: album
+        }
+
+        // Map over the playlists state array
+        const updatedArray = playlists.map(playlist => {            
+            // If playlist in the state array matches currently open playlist      
+            // AND that playlist doesn't already contain the addedTrack      
+            if(playlist.playlistId === activeIndex && !playlist.tracks.some(e => e.id === id)){                
+                
+                // Create new playlist object with updated tracks array
+                const updatedPlaylist = {
+                    playlistName: playlist.playlistName,
+                    playlistId: playlist.playlistId,
+                    tracks: [...playlist.tracks, addedTrack]
+                }                                
+                return updatedPlaylist;
+            }
+            else{
+                return playlist;
+            }
+        });
+
+        setPlaylists(updatedArray);
     }
 
     // TODO: Handle removing song from current Playlist Tracklist
-    function removeSongHandler(){
+    function removeSongHandler() {
 
     }
 
@@ -120,8 +148,8 @@ function AppContainer() {
 
     return (
         <>
-            <SearchResults tracks={fetchedTracks} onAddSong={addSongHandler}/>
-            <Playlists onInputChange={handleUserInput} userInput={userInput} onSubmitHandler={handleSubmit} playlists={playlists} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>            
+            <SearchResults tracks={fetchedTracks} onAddSong={addSongHandler} />
+            <Playlists onInputChange={handleUserInput} userInput={userInput} onSubmitHandler={handleSubmit} playlists={playlists} activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
         </>
     );
 }
