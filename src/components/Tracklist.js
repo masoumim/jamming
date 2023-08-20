@@ -4,12 +4,12 @@
 
 import Track from "./Track";
 
-function Tracklist({ tracks, buttonType, onAddSong }) {
+function Tracklist({ tracks, buttonType, onAddTrack, onRemoveTrack }) {
     return (
         <div className="Tracklist">                      
             <ul style={{listStyleType: "none"}}>
                 {tracks.map((track) => (                    
-                    <Track key={track.id} track={track} buttonType={buttonType} onAddSong={onAddSong}/>
+                    <Track key={track.id} track={track} buttonType={buttonType} onAddTrack={onAddTrack} onRemoveTrack={onRemoveTrack}/>
                 ))}
             </ul>
         </div>

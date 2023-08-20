@@ -2,7 +2,7 @@
 
 import Playlist from "./Playlist";
 
-function Playlists({ onInputChange, userInput, onSubmitHandler, playlists, activeIndex, setActiveIndex}) {                
+function Playlists({ onInputChange, userInput, onSubmitHandler, playlists, activeIndex, setActiveIndex, onRemoveTrack}) {                
     return (
         <div className="Playlist">
             <form onSubmit={onSubmitHandler}>
@@ -13,7 +13,7 @@ function Playlists({ onInputChange, userInput, onSubmitHandler, playlists, activ
             <h2>Your playlists:</h2>
             <div id="playlists">
                 {playlists.map((playlist) => (
-                    <Playlist key={playlist.playlistId} playlist={playlist} isActive={activeIndex === playlist.playlistId} onShow={() => setActiveIndex(playlist.playlistId)}/>                               
+                    <Playlist key={playlist.playlistId} playlist={playlist} isActive={activeIndex === playlist.playlistId} onShow={() => setActiveIndex(playlist.playlistId)} onRemoveTrack={onRemoveTrack}/>                               
                 ))}                
             </div>
         </div>

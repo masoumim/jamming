@@ -93,20 +93,19 @@ function AppContainer() {
     // State variables to store the playlistId of currently open playlist
     const [activeIndex, setActiveIndex] = useState();
 
-    // Handle adding song from SearchResults Tracklist to current Playlist Tracklist    
-    function addSongHandler(track) {
-        
+    // Handle adding track from SearchResults Tracklist to current Playlist Tracklist    
+    function addTrackHandler(addTrack) {
         // Map over the playlists state array
         const updatedArray = playlists.map(playlist => {
             // If playlist in the state array matches currently open playlist      
-            // AND that playlist doesn't already contain the addedTrack      
-            if (playlist.playlistId === activeIndex && !playlist.tracks.some(e => e.id === track.id)) {
+            // AND that playlist doesn't already contain the track      
+            if (playlist.playlistId === activeIndex && !playlist.tracks.some(e => e.id === addTrack.id)) {
 
                 // Create new playlist object with updated tracks array
                 const updatedPlaylist = {
                     playlistName: playlist.playlistName,
                     playlistId: playlist.playlistId,
-                    tracks: [...playlist.tracks, track]
+                    tracks: [...playlist.tracks, addTrack]
                 }
                 return updatedPlaylist;
             }
@@ -118,9 +117,28 @@ function AppContainer() {
         setPlaylists(updatedArray);
     }
 
-    // TODO: Handle removing song from current Playlist Tracklist
-    function removeSongHandler() {
+    // Handle removing track from current Playlist Tracklist
+    function removeTrackHandler(removeTrack) {
+        // Map over the playlists state array
+        const updatedArray = playlists.map(playlist => {
+            // If playlist in the state array matches currently open playlist      
+            // AND that playlist contains the track      
+            if (playlist.playlistId === activeIndex && playlist.tracks.some(e => e.id === removeTrack.id)) {
 
+                // Create new playlist object with updated tracks array
+                const updatedPlaylist = {
+                    playlistName: playlist.playlistName,
+                    playlistId: playlist.playlistId,
+                    tracks: playlist.tracks.filter((track) => track.id !== removeTrack.id)
+                }
+                return updatedPlaylist;
+            }
+            else {
+                return playlist;
+            }
+        });
+
+        setPlaylists(updatedArray);
     }
 
     // Updates the userInput state on every change to the input field
@@ -141,8 +159,8 @@ function AppContainer() {
 
     return (
         <>
-            <SearchResults tracks={fetchedTracks} onAddSong={addSongHandler} />
-            <Playlists onInputChange={handleUserInput} userInput={userInput} onSubmitHandler={handleSubmit} playlists={playlists} activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
+            <SearchResults tracks={fetchedTracks} onAddTrack={addTrackHandler} />
+            <Playlists onInputChange={handleUserInput} userInput={userInput} onSubmitHandler={handleSubmit} playlists={playlists} activeIndex={activeIndex} setActiveIndex={setActiveIndex} onRemoveTrack={removeTrackHandler} />
         </>
     );
 }

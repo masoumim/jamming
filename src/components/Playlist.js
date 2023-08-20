@@ -2,13 +2,13 @@
 // When clicked again, the playlist closes.
 import Tracklist from "./Tracklist";
 
-function Playlist({ playlist, isActive, onShow }) {
+function Playlist({ playlist, isActive, onShow, onRemoveTrack }) {
   return (
     <div>
       <h2>
         <span style={ isActive ? {color: "green"} : {} } onClick={onShow}>{playlist.playlistName}</span>
       </h2>
-      {isActive && playlist.tracks ? (<Tracklist tracks={playlist.tracks}/>) : ("")}
+      {isActive && playlist.tracks ? (<Tracklist tracks={playlist.tracks} onRemoveTrack={onRemoveTrack}/>) : ("")}
     </div>
   );
 };
