@@ -3,11 +3,11 @@
 
 import Tracklist from "./Tracklist";
 
-function Playlist({ playlist, isActive, onShow, onRemoveTrack }) {
+function Playlist({ playlist, isActive, onShow, onRemoveTrack, updateCurrentPlaylistName }) {
 
   return (
     <>
-      <input style={isActive ? { color: "green" } : {}} onClick={onShow} className="playlistname" name="playlistname" type="text" defaultValue={playlist.playlistName} />
+      <input style={isActive ? { color: "green" } : {}} onClick={(e) => {onShow(), updateCurrentPlaylistName(e)}} onChange={updateCurrentPlaylistName} className="playlistname" name="playlistname" type="text" defaultValue={playlist.playlistName} />
       {isActive && playlist.tracks ? (<Tracklist tracks={playlist.tracks} onRemoveTrack={onRemoveTrack} />) : ("")}
     </>
   );

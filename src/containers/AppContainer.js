@@ -81,7 +81,7 @@ function AppContainer() {
         }
     ];
 
-    // State variables for user input of new playlist
+    // State variables for user input of new playlist name
     const [newPlaylistInput, setNewPlaylistInput] = useState("");
 
     // State variables for playlists
@@ -92,6 +92,9 @@ function AppContainer() {
 
     // State variables to store the playlistId of currently open playlist
     const [activeIndex, setActiveIndex] = useState();
+
+    // State variables to store the name of the current playlist
+    const [currentPlaylistName, setCurrentPlaylistName] = useState("");
 
     // Handle adding track from SearchResults Tracklist to current Playlist Tracklist    
     function addTrackHandler(addTrack) {
@@ -161,10 +164,47 @@ function AppContainer() {
         setPlaylists((playlists) => [...playlists, newPlaylist]);
     }
 
+    // Updates the name of the current / open playlist
+    function updateCurrentPlaylistName(event){
+        setCurrentPlaylistName(event.target.value);        
+    }
+
+    // Handle saving / exporting a playlist to user's Spotify account
+    function handleSavePlaylist(){        
+        let currentPlaylist = {};
+        
+        // Set the current name for the playlist using the playlist name's input field        
+        const updatedArray = playlists.map(playlist => {
+
+            // If playlist in the state array matches currently open playlist                     
+            if (playlist.playlistId === activeIndex) {
+
+                // Set the current playlist object with current playlist name
+                currentPlaylist = {
+                    playlistName: currentPlaylistName,
+                    playlistId: playlist.playlistId,
+                    tracks: playlist.tracks
+                }
+                return currentPlaylist;
+            }
+            else {
+                return playlist;
+            }            
+        });
+        
+        // Update the playlists state array variable
+        setPlaylists(updatedArray);
+
+        // Test: Output the current playlist
+        console.log(currentPlaylist);
+
+        // TODO: Export the playlist to Spotify
+    }
+
     return (
         <>
             <SearchResults tracks={fetchedTracks} onAddTrack={addTrackHandler} />
-            <Playlists onNewPlaylistInputChange={handleNewPlaylistInput} newPlaylistInput={newPlaylistInput} onSubmitNewPlaylist={handleNewPlaylistSubmit} playlists={playlists} activeIndex={activeIndex} setActiveIndex={setActiveIndex} onRemoveTrack={removeTrackHandler} />
+            <Playlists onNewPlaylistInputChange={handleNewPlaylistInput} newPlaylistInput={newPlaylistInput} onSubmitNewPlaylist={handleNewPlaylistSubmit} playlists={playlists} activeIndex={activeIndex} setActiveIndex={setActiveIndex} onRemoveTrack={removeTrackHandler} onSavePlaylist={handleSavePlaylist} updateCurrentPlaylistName={updateCurrentPlaylistName}/>
         </>
     );
 }
