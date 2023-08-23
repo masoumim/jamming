@@ -18,7 +18,7 @@ export function spotifyAuth() {
         params.append("client_id", clientId); // The Jamming App client ID
         params.append("response_type", "code");
         params.append("redirect_uri", "http://localhost:3000"); // The URI a user to redirected to after authorizing on Spotify
-        params.append("scope", "user-read-private user-read-email"); // We are requesting the user-read-private and user-read-email scopes - these are the scopes that allow us to fetch the user's profile data.
+        params.append("scope", "user-read-private user-read-email playlist-modify-public"); // We are requesting 3 scopes which allow fetching the user's profile data. searching for items and create / modify public playlists.
         params.append("code_challenge_method", "S256");
         params.append("code_challenge", challenge);
 

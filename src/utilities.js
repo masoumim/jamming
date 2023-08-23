@@ -6,3 +6,14 @@ export function generateId() {
   nextId += 1;
   return result;
 }
+
+// This function accepts an object returned by the API call that contains tracks
+// It returns a clean array of track objects with basic info for each
+export function searchResultsToArray(searchResults){
+
+  // TODO: For each of the 5 max items in search results, parse the data...
+  console.log(`searchResultsToArray: ${searchResults.tracks.items[0].name}`);
+
+  return searchResults;
+  
+}

@@ -1,12 +1,13 @@
 // App.js - This component handles the logic, data and state for all of the Presentational components
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Playlists from "@/components/Playlists";
 import SearchResults from "@/components/SearchResults";
 import User from "@/components/User";
-import { generateId } from "@/utilities";
+import { generateId, searchResultsToArray } from "@/utilities";
 import { getAccessToken } from "@/server/getAccessToken";
 import { fetchProfile } from "@/server/getProfileData";
+import { getSearchResults } from "@/server/getSearchResults";
 
 function App({ urlCode }) {
     // State variables to store the Spotify API Access Code
@@ -15,17 +16,29 @@ function App({ urlCode }) {
     // State variables to store the user profile data
     const [profileData, setProfileData] = useState();
 
+    // The useRef Hook allows you to persist values between renders.
+    // It can be used to store a mutable value that does not cause a re-render when updated.
+    // It is used here to prevent calling 'getAccessToken' twice which results in an empty token value on re-render
+    const accessTokenRef = useRef(false);
+
     // Get the API access code and set the state variable
     useEffect(() => {
+        // If we have already fetched the access token, return.
+        if(accessTokenRef.current) return;
+
+        // Otherwise, set accessTokenRef to true and get access token
+        accessTokenRef.current = true;
+        
         getAccessToken(process.env.NEXT_PUBLIC_CLIENT_ID, urlCode)
-            .then(token => {
-                setAccessToken(token);
+            .then(token => {                
+                setAccessToken(token);                
             })
             .catch((err) => {
                 console.log(err);
             })
     }, []);
 
+    // Call API to get user profile data
     useEffect(() => {
         if (accessToken) {
             fetchProfile(accessToken)
@@ -91,26 +104,26 @@ function App({ urlCode }) {
     ];
 
     // Create a temporary hardcoded array of tracks to mock data returned by API
-    const tracks = [
-        {
-            id: 1,
-            name: "Song 1",
-            artist: "Artist 1",
-            album: "Album 1"
-        },
-        {
-            id: 2,
-            name: "Song 2",
-            artist: "Artist 2",
-            album: "Album 2"
-        },
-        {
-            id: 3,
-            name: "Song 3",
-            artist: "Artist 3",
-            album: "Album 3"
-        }
-    ];
+    // const tracks = [
+    //     {
+    //         id: 1,
+    //         name: "Song 1",
+    //         artist: "Artist 1",
+    //         album: "Album 1"
+    //     },
+    //     {
+    //         id: 2,
+    //         name: "Song 2",
+    //         artist: "Artist 2",
+    //         album: "Album 2"
+    //     },
+    //     {
+    //         id: 3,
+    //         name: "Song 3",
+    //         artist: "Artist 3",
+    //         album: "Album 3"
+    //     }
+    // ];
 
     // State variables for user input of new playlist name
     const [newPlaylistInput, setNewPlaylistInput] = useState("");
@@ -118,8 +131,11 @@ function App({ urlCode }) {
     // State variables for playlists
     const [playlists, setPlaylists] = useState(playlistsArray);
 
+    // State variables for the Search Bar input
+    const [searchBarInput, setSearchBarInput] = useState("");
+    
     // State variables for the list of tracks returned by API
-    const [fetchedTracks, setFetchedTracks] = useState(tracks);
+    const [fetchedTracks, setFetchedTracks] = useState([]);
 
     // State variables to store the playlistId of currently open playlist
     const [activeIndex, setActiveIndex] = useState();
@@ -181,6 +197,7 @@ function App({ urlCode }) {
 
     // Updates the newPlaylistName state on every change to the input field
     function handleNewPlaylistInput(event) {
+        // Set the state variable
         setNewPlaylistInput(event.target.value);
     }
 
@@ -193,6 +210,26 @@ function App({ urlCode }) {
             tracks: []
         }
         setPlaylists((playlists) => [...playlists, newPlaylist]);
+    }
+
+    // Updates the searchBarInput state on every change to the input field
+    function handleSearchBarInput(event){
+        // Set the state variable
+        setSearchBarInput(event.target.value);
+    }
+
+    // Handle search form submit
+    async function handleSearchSubmit(event) {
+        event.preventDefault(); // Prevents the page from reloading on submit
+        
+        // Call the API
+        let searchResults = await getSearchResults(searchBarInput, accessToken);
+                
+        // TODO: Process JSON response data into array of tracks
+        const searchResultsArray = searchResultsToArray(searchResults);
+        
+        // TODO: Update the array state variable 'fetchedTracks'
+
     }
 
     // Updates the name of the current / open playlist
@@ -232,7 +269,7 @@ function App({ urlCode }) {
     return (
         <>
             <User profileData={profileData}/>
-            <SearchResults tracks={fetchedTracks} onAddTrack={addTrackHandler} />
+            <SearchResults onSearchBarInputChange={handleSearchBarInput} searchBarInput={searchBarInput} onSubmitSearch={handleSearchSubmit} tracks={fetchedTracks} onAddTrack={addTrackHandler} />
             <Playlists onNewPlaylistInputChange={handleNewPlaylistInput} newPlaylistInput={newPlaylistInput} onSubmitNewPlaylist={handleNewPlaylistSubmit} playlists={playlists} activeIndex={activeIndex} setActiveIndex={setActiveIndex} onRemoveTrack={removeTrackHandler} onSavePlaylist={handleSavePlaylist} updateCurrentPlaylistName={updateCurrentPlaylistName} />
         </>
     );

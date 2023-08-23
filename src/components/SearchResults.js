@@ -2,16 +2,19 @@
 // using the Tracklist component
 
 import Tracklist from "./Tracklist";
-import SearchBar from "./SearchBar";
 
-function SearchResults({ tracks, onAddTrack }) {
+function SearchResults({ tracks, onAddTrack, onSearchBarInputChange, searchBarInput, onSubmitSearch }) {
     return (
         <>
-        <SearchBar/>
-        <div className="SearchResults" >
-            <h2>Results:</h2>
-            <Tracklist tracks={tracks} buttonType={"add"} onAddTrack={onAddTrack}/>
-        </div>
+            <form onSubmit={onSubmitSearch}>
+                <label htmlFor="searchBar">Search for a track:</label>
+                <input id="searchBar" name="searchBar" type="text" input={searchBarInput} onChange={onSearchBarInputChange}></input>
+                <button type="submit">Search</button>
+            </form>
+            <div className="SearchResults" >
+                <h2>Results:</h2>
+                <Tracklist tracks={tracks} buttonType={"add"} onAddTrack={onAddTrack} />
+            </div>
         </>
     );
 }
