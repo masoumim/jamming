@@ -1,7 +1,7 @@
 // index.js - This component is the root component and will display the entire app
 
 import Head from 'next/head'
-import App from '@/components/App'
+import AppContainer from '@/containers/AppContainer'
 
 export default function Home() {
   return (
@@ -12,8 +12,8 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <main>
-        <App/>
-      </main>      
+        <AppContainer/>
+      </main>
     </>
-  )
+  );
 }
