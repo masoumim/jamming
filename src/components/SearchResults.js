@@ -8,8 +8,9 @@ function SearchResults({ tracks, onAddTrack, onSearchBarInputChange, searchBarIn
         <>
             <form onSubmit={onSubmitSearch}>
                 <label htmlFor="searchBar">Search for a track:</label>
-                <input id="searchBar" name="searchBar" type="text" input={searchBarInput} onChange={onSearchBarInputChange}></input>
+                <input required id="searchBar" name="searchBar" type="text" input={searchBarInput} onChange={onSearchBarInputChange}></input>
                 <button type="submit">Search</button>
+                
             </form>
             <div className="SearchResults" >
                 <h2>Results:</h2>

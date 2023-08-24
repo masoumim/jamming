@@ -8,6 +8,8 @@ import { generateId, searchResultsToArray } from "@/utilities";
 import { getAccessToken } from "@/server/getAccessToken";
 import { fetchProfile } from "@/server/getProfileData";
 import { getSearchResults } from "@/server/getSearchResults";
+import { createPlaylist } from "@/server/createPlaylist";
+import {addItemsToPlaylist} from "@/server/addItemsToPlaylist";
 
 function App({ urlCode }) {
     // State variables to store the Spotify API Access Code
@@ -51,85 +53,11 @@ function App({ urlCode }) {
         }
     }, [accessToken]);
 
-    // Mock data for playlists
-    const playlistsArray = [
-        {
-            playlistName: "playlist1",
-            playlistId: 1,
-            tracks: [
-                {
-                    id: 4,
-                    name: "Song 4",
-                    artist: "Artist 4",
-                    album: "Album 4"
-                },
-                {
-                    id: 5,
-                    name: "Song 5",
-                    artist: "Artist 5",
-                    album: "Album 5"
-                },
-                {
-                    id: 6,
-                    name: "Song 6",
-                    artist: "Artist 6",
-                    album: "Album 6"
-                }
-            ]
-        },
-        {
-            playlistName: "playlist2",
-            playlistId: 2,
-            tracks: [
-                {
-                    id: 7,
-                    name: "Song 7",
-                    artist: "Artist 7",
-                    album: "Album 7"
-                },
-                {
-                    id: 8,
-                    name: "Song 8",
-                    artist: "Artist 8",
-                    album: "Album 8"
-                },
-                {
-                    id: 9,
-                    name: "Song 9",
-                    artist: "Artist 9",
-                    album: "Album 9"
-                }
-            ]
-        }
-    ];
-
-    // Create a temporary hardcoded array of tracks to mock data returned by API
-    // const tracks = [
-    //     {
-    //         id: 1,
-    //         name: "Song 1",
-    //         artist: "Artist 1",
-    //         album: "Album 1"
-    //     },
-    //     {
-    //         id: 2,
-    //         name: "Song 2",
-    //         artist: "Artist 2",
-    //         album: "Album 2"
-    //     },
-    //     {
-    //         id: 3,
-    //         name: "Song 3",
-    //         artist: "Artist 3",
-    //         album: "Album 3"
-    //     }
-    // ];
-
     // State variables for user input of new playlist name
     const [newPlaylistInput, setNewPlaylistInput] = useState("");
 
     // State variables for playlists
-    const [playlists, setPlaylists] = useState(playlistsArray);
+    const [playlists, setPlaylists] = useState([]);
 
     // State variables for the Search Bar input
     const [searchBarInput, setSearchBarInput] = useState("");
@@ -142,6 +70,16 @@ function App({ urlCode }) {
 
     // State variables to store the name of the current playlist
     const [currentPlaylistName, setCurrentPlaylistName] = useState("");
+
+    // State variable to store the Save Playlist button message
+    const [saveButtonMsg, setSaveButtonMsg] = useState("");
+
+    // Erases the save button message after 3 seconds
+    useEffect(() => {        
+        setTimeout(() => {
+            setSaveButtonMsg("");
+        }, 3000);        
+    }, [saveButtonMsg]);
 
     // Handle adding track from SearchResults Tracklist to current Playlist Tracklist    
     function addTrackHandler(addTrack) {
@@ -221,15 +159,15 @@ function App({ urlCode }) {
     // Handle search form submit
     async function handleSearchSubmit(event) {
         event.preventDefault(); // Prevents the page from reloading on submit
-        
+                        
         // Call the API
         let searchResults = await getSearchResults(searchBarInput, accessToken);
                 
-        // TODO: Process JSON response data into array of tracks
+        // Process JSON response data into array of tracks
         const searchResultsArray = searchResultsToArray(searchResults);
         
-        // TODO: Update the array state variable 'fetchedTracks'
-
+        // Update the array state variable 'fetchedTracks'
+        setFetchedTracks(searchResultsArray);
     }
 
     // Updates the name of the current / open playlist
@@ -238,7 +176,7 @@ function App({ urlCode }) {
     }
 
     // Handle saving / exporting a playlist to user's Spotify account
-    function handleSavePlaylist() {
+    async function handleSavePlaylist() {
         let currentPlaylist = {};
 
         // Set the current name for the playlist using the playlist name's input field        
@@ -263,14 +201,40 @@ function App({ urlCode }) {
         // Update the playlists state array variable
         setPlaylists(updatedArray);
 
-        // TODO: Export the playlist to Spotify (add check to only export if currentPlaylist != {})
+        // Export the playlist to Spotify if a playlist is selected and it has at least 1 track   
+        if(currentPlaylist.tracks){
+            if(currentPlaylist.tracks.length === 0){
+                setSaveButtonMsg("add at least 1 track to the playlist before saving to Spotify");
+            }
+            else{
+                // Saving playlist to Spotify
+                let trackURIs = [];
+                // Create an array of track URI's from each track in the playlist
+                for (let trackURI in currentPlaylist.tracks){
+                    trackURIs.push(currentPlaylist.tracks[trackURI].uri)
+                }
+                
+                // POST new playlist to API
+                const createPlaylistResponse = await createPlaylist(profileData.display_name, currentPlaylistName, accessToken);
+    
+                // POST track URI's to playlist
+                const playlistId = createPlaylistResponse.id;
+
+                const addSongsResponse = await addItemsToPlaylist(playlistId, accessToken, trackURIs)
+
+                setSaveButtonMsg("playlist saved to Spotify!");
+            }
+        }
+        else{            
+            setSaveButtonMsg("Select a playlist to save to Spotify");
+        }
     }
 
     return (
         <>
             <User profileData={profileData}/>
-            <SearchResults onSearchBarInputChange={handleSearchBarInput} searchBarInput={searchBarInput} onSubmitSearch={handleSearchSubmit} tracks={fetchedTracks} onAddTrack={addTrackHandler} />
-            <Playlists onNewPlaylistInputChange={handleNewPlaylistInput} newPlaylistInput={newPlaylistInput} onSubmitNewPlaylist={handleNewPlaylistSubmit} playlists={playlists} activeIndex={activeIndex} setActiveIndex={setActiveIndex} onRemoveTrack={removeTrackHandler} onSavePlaylist={handleSavePlaylist} updateCurrentPlaylistName={updateCurrentPlaylistName} />
+            <SearchResults onSearchBarInputChange={handleSearchBarInput} searchBarInput={searchBarInput} onSubmitSearch={handleSearchSubmit} tracks={fetchedTracks} onAddTrack={addTrackHandler}/>
+            <Playlists onNewPlaylistInputChange={handleNewPlaylistInput} newPlaylistInput={newPlaylistInput} onSubmitNewPlaylist={handleNewPlaylistSubmit} playlists={playlists} activeIndex={activeIndex} setActiveIndex={setActiveIndex} onRemoveTrack={removeTrackHandler} onSavePlaylist={handleSavePlaylist} updateCurrentPlaylistName={updateCurrentPlaylistName} saveButtonMsg={saveButtonMsg}/>
         </>
     );
 }
