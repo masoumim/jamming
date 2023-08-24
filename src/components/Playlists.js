@@ -4,7 +4,7 @@ import Playlist from "./Playlist";
 
 function Playlists({ onNewPlaylistInputChange, newPlaylistInput, onSubmitNewPlaylist, playlists, activeIndex, setActiveIndex, onRemoveTrack, onSavePlaylist, updateCurrentPlaylistName, saveButtonMsg }) {
     return (
-        <div className="Playlist">
+        <div className="playlists">
             <form onSubmit={onSubmitNewPlaylist}>
                 <label htmlFor="playlistname">Playlist name:</label>
                 <input required id="playlistname" name="playlistname" type="text" value={newPlaylistInput} onChange={onNewPlaylistInputChange} />
@@ -17,8 +17,7 @@ function Playlists({ onNewPlaylistInputChange, newPlaylistInput, onSubmitNewPlay
                 ))}
             </div>                                          
                 <button onClick={onSavePlaylist}>Save Playlist</button>
-                <b>{saveButtonMsg}</b>
-                         
+                <b>{saveButtonMsg}</b>                         
         </div>
     );
 }

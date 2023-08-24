@@ -4,3 +4,60 @@
     border: none;
     display: block;
 }
+
+/* NAV */
+.nav{
+    background-color: #202020;
+    height: 3rem;
+    display: grid;
+    grid-template-columns: 25% 50%;
+    align-items: center;
+    padding-left: 1rem;
+}
+
+.nav h2{
+    text-align: center;
+}
+
+/* SEARCH BAR */
+.search{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3rem;    
+}
+
+.search label{
+    margin-bottom: 1rem;
+}
+
+.search button{
+    margin-top: 1rem;
+}
+
+/* MAIN */
+.main{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(1rem, 36rem));
+    justify-content: center;
+    margin-top: 2rem;
+    min-height: 60rem;    
+}
+
+/* Search Results */
+.searchresults{
+    background-color: #1db954ad;
+    width: 35rem;
+    border: 2px solid black;
+    margin: 1rem;
+    padding: 1rem;  
+}
+
+/* Playlists */
+.playlists{
+    background-color: #1db954ad;
+    width: 35rem;
+    border: 2px solid black;
+    margin: 1rem;
+    padding: 1rem;   
+}

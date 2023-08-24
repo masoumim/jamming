@@ -5,7 +5,7 @@ function User({ profileData }) {
         return (
             <>
                 <section id="profile">
-                    <h2>Logged in as <span id="displayName">{profileData.display_name}</span></h2>
+                    <b>Logged in as <span id="displayName">{profileData.display_name}</span></b>
                 </section>
             </>
         );

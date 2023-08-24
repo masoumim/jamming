@@ -232,9 +232,18 @@ function App({ urlCode }) {
 
     return (
         <>
-            <User profileData={profileData}/>
-            <SearchResults onSearchBarInputChange={handleSearchBarInput} searchBarInput={searchBarInput} onSubmitSearch={handleSearchSubmit} tracks={fetchedTracks} onAddTrack={addTrackHandler}/>
-            <Playlists onNewPlaylistInputChange={handleNewPlaylistInput} newPlaylistInput={newPlaylistInput} onSubmitNewPlaylist={handleNewPlaylistSubmit} playlists={playlists} activeIndex={activeIndex} setActiveIndex={setActiveIndex} onRemoveTrack={removeTrackHandler} onSavePlaylist={handleSavePlaylist} updateCurrentPlaylistName={updateCurrentPlaylistName} saveButtonMsg={saveButtonMsg}/>
+            <div className="nav"><User profileData={profileData}/><h2>JAMMING</h2></div>
+            <div className="searchBar">
+            <form className="search" onSubmit={handleSearchSubmit}>
+                <label htmlFor="searchBar">Search for a track</label>
+                <input required id="searchBar" name="searchBar" type="text" input={searchBarInput} onChange={handleSearchBarInput}></input>
+                <button type="submit">Search</button>                
+            </form>
+            </div>
+            <div className="main">
+                <SearchResults onSearchBarInputChange={handleSearchBarInput} searchBarInput={searchBarInput} onSubmitSearch={handleSearchSubmit} tracks={fetchedTracks} onAddTrack={addTrackHandler} />
+                <Playlists onNewPlaylistInputChange={handleNewPlaylistInput} newPlaylistInput={newPlaylistInput} onSubmitNewPlaylist={handleNewPlaylistSubmit} playlists={playlists} activeIndex={activeIndex} setActiveIndex={setActiveIndex} onRemoveTrack={removeTrackHandler} onSavePlaylist={handleSavePlaylist} updateCurrentPlaylistName={updateCurrentPlaylistName} saveButtonMsg={saveButtonMsg} />
+            </div>
         </>
     );
 }

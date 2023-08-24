@@ -7,7 +7,7 @@ import Track from "./Track";
 function Tracklist({ tracks, buttonType, onAddTrack, onRemoveTrack }) {
     return (
         <div className="Tracklist">                      
-            <ul style={{listStyleType: "none"}}>
+            <ul>
                 {tracks.map((track) => (                    
                     <Track key={track.id} track={track} buttonType={buttonType} onAddTrack={onAddTrack} onRemoveTrack={onRemoveTrack}/>
                 ))}
