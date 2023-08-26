@@ -4,18 +4,20 @@ import Playlist from "./Playlist";
 
 function Playlists({ onNewPlaylistInputChange, newPlaylistInput, onSubmitNewPlaylist, playlists, activeIndex, setActiveIndex, onRemoveTrack, onSavePlaylist, updateCurrentPlaylistName, saveButtonMsg }) {
     return (
-        <div className="playlists">
+        <div className="playlists-container">
             <h2>Your playlists:</h2>
             <form onSubmit={onSubmitNewPlaylist}>                
-                <input required type="text" value={newPlaylistInput} onChange={onNewPlaylistInputChange} />
-                <button type="submit">Create Playlist</button>
+                <input required type="text" value={newPlaylistInput} onChange={onNewPlaylistInputChange} maxLength={17}/>
+                <button className="createplaylistbutton" type="submit">Create Playlist</button>
             </form>            
-            <div id="playlists">                
+            <div className="playlists">                
                 {playlists.map((playlist) => (
                     <Playlist key={playlist.playlistId} playlist={playlist} isActive={activeIndex === playlist.playlistId} onShow={() => setActiveIndex(playlist.playlistId)} onRemoveTrack={onRemoveTrack} updateCurrentPlaylistName={updateCurrentPlaylistName} />
                 ))}
             </div>                                          
-                <button onClick={onSavePlaylist}>Save Playlist</button>
+                <div className="saveplaylistbuttoncontainer">
+                    <button className="saveplaylistbutton" onClick={onSavePlaylist}>SAVE PLAYLIST</button>
+                </div>
                 <b>{saveButtonMsg}</b>                         
         </div>
     );

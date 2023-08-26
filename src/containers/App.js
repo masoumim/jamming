@@ -202,30 +202,35 @@ function App({ urlCode }) {
         setPlaylists(updatedArray);
 
         // Export the playlist to Spotify if a playlist is selected and it has at least 1 track   
-        if(currentPlaylist.tracks){
-            if(currentPlaylist.tracks.length === 0){
+        if (currentPlaylist.tracks) {
+            if (currentPlaylist.tracks.length === 0) {
                 setSaveButtonMsg("add at least 1 track to the playlist before saving to Spotify");
             }
-            else{
+            else {
                 // Saving playlist to Spotify
                 let trackURIs = [];
                 // Create an array of track URI's from each track in the playlist
-                for (let trackURI in currentPlaylist.tracks){
+                for (let trackURI in currentPlaylist.tracks) {
                     trackURIs.push(currentPlaylist.tracks[trackURI].uri)
                 }
-                
-                // POST new playlist to API
-                const createPlaylistResponse = await createPlaylist(profileData.display_name, currentPlaylistName, accessToken);
-    
-                // POST track URI's to playlist
-                const playlistId = createPlaylistResponse.id;
 
-                const addSongsResponse = await addItemsToPlaylist(playlistId, accessToken, trackURIs)
+                // Before submitting playlist to API, make sure the playlist name isn't empty
+                if (currentPlaylist.playlistName.length > 0) {
+                    // POST new playlist to API
+                    const createPlaylistResponse = await createPlaylist(profileData.display_name, currentPlaylistName, accessToken);
 
-                setSaveButtonMsg("playlist saved to Spotify!");
+                    // POST track URI's to playlist
+                    const playlistId = createPlaylistResponse.id;
+
+                    const addSongsResponse = await addItemsToPlaylist(playlistId, accessToken, trackURIs);
+                    setSaveButtonMsg("playlist saved to Spotify!");
+                }
+                else {
+                    setSaveButtonMsg("Playlist name can't be blank!");
+                }
             }
         }
-        else{            
+        else {
             setSaveButtonMsg("Select a playlist to save to Spotify");
         }
     }
@@ -235,9 +240,8 @@ function App({ urlCode }) {
             <div className="nav"><User profileData={profileData}/><h2>JAMMING</h2></div>
             <div className="searchBar">
             <form className="search" onSubmit={handleSearchSubmit}>
-                <label htmlFor="searchBar">Search for a track</label>
                 <input required id="searchBar" name="searchBar" type="text" input={searchBarInput} onChange={handleSearchBarInput}></input>
-                <button type="submit">Search</button>                
+                <button type="submit">Find Track</button>                
             </form>
             </div>
             <div className="main">

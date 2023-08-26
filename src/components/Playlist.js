@@ -7,7 +7,7 @@ function Playlist({ playlist, isActive, onShow, onRemoveTrack, updateCurrentPlay
   
   return (
     <>
-      <input style={isActive ? { color: "#C84B31" } : {}} onClick={(e) => {onShow(), updateCurrentPlaylistName(e)}} onChange={updateCurrentPlaylistName} className="playlistname" name="playlistname" type="text" defaultValue={playlist.playlistName} />
+      <input style={isActive ? { color: "#C84B31" } : {}} onClick={(e) => {onShow(), updateCurrentPlaylistName(e)}} onChange={updateCurrentPlaylistName} className="playlistname" name="playlistname" type="text" maxLength={17} defaultValue={playlist.playlistName}/>
       {isActive && playlist.tracks ? (<Tracklist tracks={playlist.tracks} onRemoveTrack={onRemoveTrack} />) : ("")}
     </>
   );
