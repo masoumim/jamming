@@ -1,13 +1,12 @@
+/* Color Palette: https://colorhunt.co/palette/1919192d4263c84b31ecdbba */
+
 /* Global styles */
-.playlistname {
-    outline: none;
-    border: none;
-    display: block;
-}
+
 
 /* NAV */
 .nav{
-    background-color: #202020;
+    background-color: #C84B31;
+    color: #ECDBBA;
     height: 3rem;
     display: grid;
     grid-template-columns: 25% 50%;
@@ -46,18 +45,66 @@
 
 /* Search Results */
 .searchresults{
-    background-color: #1db954ad;
-    width: 35rem;
-    border: 2px solid black;
-    margin: 1rem;
-    padding: 1rem;  
-}
-
-/* Playlists */
-.playlists{
-    background-color: #1db954ad;
+    background-color: #2d4263c0;
     width: 35rem;
     border: 2px solid black;
     margin: 1rem;
     padding: 1rem;   
+}
+
+.searchresults h2{
+    text-align: center;
+}
+
+/* Playlists */
+.playlists{
+    background-color:  #2d4263c0;
+    width: 35rem;
+    border: 2px solid black;
+    margin: 1rem;
+    padding: 1rem; 
+}
+
+.playlists h2{
+    text-align: center;
+}
+
+.playlists form{
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.playlists form button{
+    margin-left: 1rem;
+}
+
+/* Playlist */
+.playlistname{
+    outline: none;
+    border: none;    
+    color: #ECDBBA;
+    background-color: #5c8374;    
+    font-size: 2rem;
+    text-align: center;
+    width: 25rem; 
+}
+
+/* TRACK */
+.track{
+    background-color: #22334e;    
+    display: grid;
+    grid-template-columns: 75% 25%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+
+}
+
+.track button{
+    height: 2rem;
+    width: 2rem;
+    margin: auto;
 }
