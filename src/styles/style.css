@@ -1,6 +1,6 @@
 /* Color Palette: https://colorhunt.co/palette/1919192d4263c84b31ecdbba */
 
-/* APP CONTAINER */
+/* APP CONTAINER / LOGIN & AUTH */
 .login{
     margin-top: 10rem;
     display: flex;
@@ -44,6 +44,38 @@
     font-weight: bold;
     margin: 1rem;
 }
+
+@media only screen and (max-width: 535px) {
+    .login h1{
+        font-size: 4rem;
+    }
+}
+
+@media only screen and (max-width: 460px) {
+    .login h2{
+        font-size: 1.2rem;
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    .login button{
+        width: 20rem;
+        font-size: 1rem;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .login h1{
+        font-size: 2rem;
+    }
+
+    .login button{
+        width: 15rem;
+        font-size: 0.8rem;
+    }
+}
+
+
 
 /* NAV */
 .nav{
