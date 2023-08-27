@@ -17,7 +17,7 @@ export function spotifyAuth() {
         const params = new URLSearchParams();
         params.append("client_id", clientId); // The Jamming App client ID
         params.append("response_type", "code");
-        params.append("redirect_uri", "http://localhost:3000"); // The URI a user to redirected to after authorizing on Spotify
+        params.append("redirect_uri", "https://jamming-sigma.vercel.app"); // The URI a user is redirected to after authorizing on Spotify
         params.append("scope", "user-read-private user-read-email playlist-modify-public"); // We are requesting 3 scopes which allow fetching the user's profile data. searching for items and create / modify public playlists.
         params.append("code_challenge_method", "S256");
         params.append("code_challenge", challenge);
