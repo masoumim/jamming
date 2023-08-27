@@ -15,7 +15,7 @@ App Link: https://jamming-sigma.vercel.app
 
 
 # Project info:
-JAMMING is a React / Next.js Single-page application that lets users quickly search for tracks, create playlists and save them to thier Spotify account. The app uses the [Spotify API](https://developer.spotify.com/documentation/web-api) for fetching tracks, creating playlists and adding tracks to them. If you don't have a Spotify account you can [create one for free](https://www.spotify.com/ca-en/signup))
+JAMMING is a React / Next.js Single-page application that lets users quickly search for tracks, create playlists and save them to thier Spotify account. The app uses the [Spotify API](https://developer.spotify.com/documentation/web-api) for fetching tracks, creating playlists and adding tracks to them. If you don't have a Spotify account you can [create one for free](https://www.spotify.com/ca-en/signup)
 
 
 # Container / Presentational design pattern:
