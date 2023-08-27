@@ -1,14 +1,14 @@
 /* Color Palette: https://colorhunt.co/palette/1919192d4263c84b31ecdbba */
 
 /* APP CONTAINER / LOGIN & AUTH */
-.login{
+.login {
     margin-top: 10rem;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.login button{
+.login button {
     margin-top: 1rem;
     cursor: pointer;
     font-size: 1.4rem;
@@ -16,7 +16,7 @@
     transition-property: background-color;
     transition-duration: .3s;
     border: 1px solid transparent;
-    text-align: center;    
+    text-align: center;
     color: #ECDBBA;
     width: 25rem;
     height: 3rem;
@@ -27,18 +27,18 @@
     margin-top: 1.5rem;
 }
 
-.login button:hover{
+.login button:hover {
     background-color: #e05a3f;
 }
 
-.login h1{
+.login h1 {
     font-family: 'Permanent Marker';
     color: #ECDBBA;
     font-size: 6rem;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
-.login h2{
+.login h2 {
     font-family: 'Inter Tight';
     font-size: 2rem;
     font-weight: bold;
@@ -46,42 +46,41 @@
 }
 
 @media only screen and (max-width: 535px) {
-    .login h1{
+    .login h1 {
         font-size: 4rem;
     }
 }
 
 @media only screen and (max-width: 460px) {
-    .login h2{
+    .login h2 {
         font-size: 1.2rem;
     }
 }
 
 @media only screen and (max-width: 420px) {
-    .login button{
+    .login button {
         width: 20rem;
         font-size: 1rem;
     }
 }
 
 @media only screen and (max-width: 360px) {
-    .login h1{
+    .login h1 {
         font-size: 2rem;
     }
 
-    .login button{
+    .login button {
         width: 15rem;
         font-size: 0.8rem;
     }
 }
 
-
-
 /* NAV */
-.nav{
+.nav {
     background-color: #C84B31;
     color: #ECDBBA;
     height: 4rem;
+    width: 100%;
     display: grid;
     grid-template-columns: 25% 50%;
     align-items: center;
@@ -89,30 +88,48 @@
     border-bottom: 4px solid #5c1f13;
 }
 
-.nav h2{
+.nav h2 {
     text-align: center;
     font-family: 'Permanent Marker';
     font-size: 2.5rem;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
+@media only screen and (max-width: 450px) {
+    .nav h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media only screen and (max-width: 390px) {
+    .profile b {
+        font-size: 0.8rem;
+    }
+}
+
+@media only screen and (max-width: 325px) {
+    .profile b {
+        display: none;
+    }
+}
+
 /* SEARCH FORM */
-.searchForm{
+.searchForm {
     background-image: url("../../public/images/bg_image.png");
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center;    
+    background-position: center;
     height: 40rem;
     margin-top: 2rem;
 }
 
-.search{
+.search {
     display: flex;
     flex-direction: column;
-    align-items: center;    
+    align-items: center;
 }
 
-.search button{
+.search button {
     margin-top: 1rem;
     cursor: pointer;
     font-size: 1.4rem;
@@ -120,7 +137,7 @@
     transition-property: background-color;
     transition-duration: .3s;
     border: 1px solid transparent;
-    text-align: center;    
+    text-align: center;
     color: #ECDBBA;
     width: 15rem;
     height: 3rem;
@@ -130,11 +147,11 @@
     box-shadow: 0px 0px 30px #000000;
 }
 
-.search button:hover{
+.search button:hover {
     background-color: #e05a3f;
 }
 
-.search .searchBarInput{
+.search .searchBarInput {
     margin-top: 19rem;
     width: 20rem;
     height: 3rem;
@@ -147,159 +164,267 @@
 
 }
 
+@media only screen and (max-width: 365px) {
+    .searchForm .search .searchBarInput {
+        width: 15rem;
+    }
+}
+
 /* MAIN */
-.main{
+.main {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(1rem, 36rem));
     justify-content: center;
-    min-height: 60rem;    
+    justify-items: center;
+    min-height: 60rem;
+    margin-bottom: 2rem;
 }
 
 /* Search Results */
-.searchresults{
+.searchresults {
     background-color: #2d4263c0;
     width: 35rem;
     border-radius: 1rem;
     margin: 1rem;
-    padding: 1rem;   
-}
-
-.searchresults h2{
-    text-align: center;
-    font-family: 'Permanent Marker';
-    font-size: 3rem;
-    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-}
-
-/* Playlists */
-.playlists-container{
-    background-color:  #2d4263c0;
-    width: 35rem;
-    border-radius: 1rem;
-    margin: 1rem;
-    padding: 1rem; 
-}
-
-.playlists-container h2{
-    text-align: center;
-    font-family: 'Permanent Marker';
-    font-size: 3rem;
-    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-}
-
-.playlists-container form{
-    text-align: center;
-    margin-top: 2rem;
-}
-
-.playlists-container form input{
-    width: 18rem;
-    height: 2.5rem;
-    outline: none;
-    font-size: 1.5rem;
-    text-align: center;
-    font-family: 'Inter Tight';
-}
-
-.playlists-container form button{
-    margin-left: 2rem;
-    cursor: pointer;
-    font-size: 1rem;
-    border-radius: 500px;
-    transition-property: background-color;
-    transition-duration: .3s;
-    border: 1px solid transparent;
-    text-align: center;
-    padding: 0.5rem;
-    color: #ECDBBA;
-    width: 9rem;
-    background-color: #C84B31;
-    font-weight: bold;
-    font-family: 'Inter Tight';
-}
-
-.playlists-container form button:hover{
-    background-color: #e05a3f;
-}
-
-.playlists-container .playlists{
-    margin-top: 2rem;
-}
-
-.playlists-container .saveplaylistbuttoncontainer{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2rem;
-}
-
-.playlists-container .saveplaylistbuttoncontainer button{
-    cursor: pointer;
-    font-size: 1rem;
-    border-radius: 500px;
-    width: 15rem;
-    transition-property: background-color;
-    transition-duration: .3s;
-    border: 1px solid transparent;
-    text-align: center;
     padding: 1rem;
-    color: #ECDBBA;
-    font-weight: bold;
-    background-color: #C84B31;
-    font-family: 'Inter Tight';
 }
 
-.playlists-container .saveplaylistbuttoncontainer button:hover{
-    background-color: #e05a3f;
+.searchresults h2 {
+    text-align: center;
+    font-family: 'Permanent Marker';
+    font-size: 3rem;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
-.playlists-container .saveplaylistbuttoncontainer b{
-    margin-top: 2rem;
+@media only screen and (max-width: 620px) {
+    .main {
+        grid-template-columns: repeat(auto-fit, minmax(1rem, 30rem));
+    }
+
+    .searchresults {
+        width: 29rem;
+    }
 }
 
-.playlists-container .saveplaylistbuttoncontainer .save-message{
-    font-size: 1.1rem;
+@media only screen and (max-width: 515px) {
+    .main {
+        grid-template-columns: repeat(auto-fit, minmax(1rem, 25rem));
+    }
+
+    .searchresults {
+        width: 24rem;
+    }
 }
 
-/* Playlist */
-.playlistname{
-    outline: none;
-    border: none;    
-    color: #ECDBBA;
-    background-color: #00000000;    
-    font-size: 1.5rem;
-    border-bottom: 1.5px solid #476390;
-    width: 100%;
-    font-family: 'Inter Tight';
+@media only screen and (max-width: 435px) {
+    .main {
+        grid-template-columns: repeat(auto-fit, minmax(1rem, 20rem));
+    }
+
+    .searchresults {
+        width: 19rem;
+    }
 }
 
-/* TRACK */
-.track{
-    background-color: #22334e;    
-    display: grid;
-    grid-template-columns: 75% 25%;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    font-size: 1.2rem;
+@media only screen and (max-width: 355px) {
+    .main {
+        grid-template-columns: repeat(auto-fit, minmax(1rem, 16rem));
+    }
+
+    .searchresults {
+        width: 15rem;
+    }
 }
 
-.track button{
-    height: 2rem;
-    width: 2rem;
-    margin: auto;
-    background-color: #C84B31;
-    color: #ECDBBA;
-    font-size: 1.5rem;
-    border: 1px solid transparent;
-    transition-property: background-color;
-    transition-duration: .3s;
-}
+    /* Playlists */
+    .playlists-container {
+        background-color: #2d4263c0;
+        width: 35rem;
+        border-radius: 1rem;
+        margin: 1rem;
+        padding: 1rem;
+    }
 
-.track button:hover{
-    background-color: #e05a3f;
-}
+    .playlists-container h2 {
+        text-align: center;
+        font-family: 'Permanent Marker';
+        font-size: 3rem;
+        text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    }
+
+    .playlists-container form {
+        text-align: center;
+        margin-top: 2rem;
+    }
+
+    .playlists-container form input {
+        width: 18rem;
+        height: 2.5rem;
+        outline: none;
+        font-size: 1.5rem;
+        text-align: center;
+        font-family: 'Inter Tight';
+    }
+
+    .playlists-container form button {
+        margin-left: 2rem;
+        cursor: pointer;
+        font-size: 1rem;
+        border-radius: 500px;
+        transition-property: background-color;
+        transition-duration: .3s;
+        border: 1px solid transparent;
+        text-align: center;
+        padding: 0.5rem;
+        color: #ECDBBA;
+        width: 9rem;
+        background-color: #C84B31;
+        font-weight: bold;
+        font-family: 'Inter Tight';
+    }
+
+    .playlists-container form button:hover {
+        background-color: #e05a3f;
+    }
+
+    .playlists-container .playlists {
+        margin-top: 2rem;
+    }
+
+    .playlists-container .saveplaylistbuttoncontainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 2rem;
+    }
+
+    .playlists-container .saveplaylistbuttoncontainer button {
+        cursor: pointer;
+        font-size: 1rem;
+        border-radius: 500px;
+        width: 15rem;
+        transition-property: background-color;
+        transition-duration: .3s;
+        border: 1px solid transparent;
+        text-align: center;
+        padding: 1rem;
+        color: #ECDBBA;
+        font-weight: bold;
+        background-color: #C84B31;
+        font-family: 'Inter Tight';
+    }
+
+    .playlists-container .saveplaylistbuttoncontainer button:hover {
+        background-color: #e05a3f;
+    }
+
+    .playlists-container .saveplaylistbuttoncontainer b {
+        margin-top: 2rem;
+    }
+
+    .playlists-container .saveplaylistbuttoncontainer .save-message {
+        font-size: 1.1rem;
+    }
+
+    @media only screen and (max-width: 620px) {
+        .playlists-container {
+            width: 29rem;
+        }
+
+        .playlists-container form .createplaylistbutton{
+            margin-top: 1rem;
+
+        }
+    }
+    
+    @media only screen and (max-width: 515px) {    
+        .playlists-container {
+            width: 24rem;
+        }
+
+        .playlists-container form input{
+            width: 15rem;
+        }
+
+        .playlists-container form .createplaylistbutton{
+            margin: 1rem auto;
+
+        }
+    }
+      
+    @media only screen and (max-width: 435px) {    
+        .playlists-container {
+            width: 19rem;
+        }
+
+        .playlists-container form input{
+            width: 10rem;
+        }
+
+        .playlists-container .saveplaylistbuttoncontainer button{
+            width: 10rem;
+        }
+    }
+
+    @media only screen and (max-width: 355px) {    
+        .playlists-container {
+            width: 15rem;
+        }
+
+        .playlists-container form input{
+            width: 10rem;
+        }
+
+        .playlists-container .saveplaylistbuttoncontainer button{
+            width: 10rem;
+        }
+    }
+
+    /* Playlist */
+    .playlistname {
+        outline: none;
+        border: none;
+        color: #ECDBBA;
+        background-color: #00000000;
+        font-size: 1.5rem;
+        border-bottom: 1.5px solid #476390;
+        width: 100%;
+        font-family: 'Inter Tight';
+    }
+
+    /* TRACK */
+    .track {
+        background-color: #22334e;
+        display: grid;
+        grid-template-columns: 75% 25%;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        font-size: 1.2rem;
+    }
+
+    .track button {
+        height: 2rem;
+        width: 2rem;
+        margin: auto;
+        background-color: #C84B31;
+        color: #ECDBBA;
+        font-size: 1.5rem;
+        border: 1px solid transparent;
+        transition-property: background-color;
+        transition-duration: .3s;
+    }
+
+    .track button:hover {
+        background-color: #e05a3f;
+    }
+
+    @media only screen and (max-width: 620px) {
+        .track{
+            font-size: 0.9rem;
+        }
+    }
