@@ -1,5 +1,6 @@
 // AppContainer.js - This top-level component handles user authorization on Spotify
 // and fetching an access token to be passed as a prop to the App Component
+
 import App from "@/containers/App";
 import { useEffect } from "react";
 import { spotifyAuth } from "@/server/spotifyAuth";
@@ -19,7 +20,11 @@ function AppContainer() {
     // If URL does not contain 'code', render the button that authorizes the Jamming app on Spotify
     if(!code){
         return(
-            <button onClick={spotifyAuth}>Connect your spotify account</button>            
+            <div className="login">            
+                <h1>JAMMING</h1>
+                <h2>Quickly create Spotify playlists</h2>
+                <button className="connectbtn" onClick={spotifyAuth}>Connect your Spotify account</button>            
+            </div>
         );
     }
     // Otherwise, render the AppContainer Component and pass it the access token as a prop

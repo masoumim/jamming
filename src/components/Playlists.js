@@ -17,8 +17,8 @@ function Playlists({ onNewPlaylistInputChange, newPlaylistInput, onSubmitNewPlay
             </div>                                          
                 <div className="saveplaylistbuttoncontainer">
                     <button className="saveplaylistbutton" onClick={onSavePlaylist}>SAVE PLAYLIST</button>
-                </div>
-                <b>{saveButtonMsg}</b>                         
+                    <b className="save-message">{saveButtonMsg}</b>
+                </div>                                         
         </div>
     );
 }

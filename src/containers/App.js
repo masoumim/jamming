@@ -1,15 +1,16 @@
 // App.js - This component handles the logic, data and state for all of the Presentational components
 
 import React, { useState, useEffect, useRef } from "react";
-import Playlists from "@/components/Playlists";
+import Nav from "@/components/Nav";
+import SearchForm from "@/components/SearchForm";
 import SearchResults from "@/components/SearchResults";
-import User from "@/components/User";
+import Playlists from "@/components/Playlists";
 import { generateId, searchResultsToArray } from "@/utilities";
 import { getAccessToken } from "@/server/getAccessToken";
 import { fetchProfile } from "@/server/getProfileData";
 import { getSearchResults } from "@/server/getSearchResults";
 import { createPlaylist } from "@/server/createPlaylist";
-import {addItemsToPlaylist} from "@/server/addItemsToPlaylist";
+import { addItemsToPlaylist } from "@/server/addItemsToPlaylist";
 
 function App({ urlCode }) {
     // State variables to store the Spotify API Access Code
@@ -26,14 +27,14 @@ function App({ urlCode }) {
     // Get the API access code and set the state variable
     useEffect(() => {
         // If we have already fetched the access token, return.
-        if(accessTokenRef.current) return;
+        if (accessTokenRef.current) return;
 
         // Otherwise, set accessTokenRef to true and get access token
         accessTokenRef.current = true;
-        
+
         getAccessToken(process.env.NEXT_PUBLIC_CLIENT_ID, urlCode)
-            .then(token => {                
-                setAccessToken(token);                
+            .then(token => {
+                setAccessToken(token);
             })
             .catch((err) => {
                 console.log(err);
@@ -61,7 +62,7 @@ function App({ urlCode }) {
 
     // State variables for the Search Bar input
     const [searchBarInput, setSearchBarInput] = useState("");
-    
+
     // State variables for the list of tracks returned by API
     const [fetchedTracks, setFetchedTracks] = useState([]);
 
@@ -75,10 +76,10 @@ function App({ urlCode }) {
     const [saveButtonMsg, setSaveButtonMsg] = useState("");
 
     // Erases the save button message after 3 seconds
-    useEffect(() => {        
+    useEffect(() => {
         setTimeout(() => {
             setSaveButtonMsg("");
-        }, 3000);        
+        }, 3000);
     }, [saveButtonMsg]);
 
     // Handle adding track from SearchResults Tracklist to current Playlist Tracklist    
@@ -151,7 +152,7 @@ function App({ urlCode }) {
     }
 
     // Updates the searchBarInput state on every change to the input field
-    function handleSearchBarInput(event){
+    function handleSearchBarInput(event) {
         // Set the state variable
         setSearchBarInput(event.target.value);
     }
@@ -159,13 +160,13 @@ function App({ urlCode }) {
     // Handle search form submit
     async function handleSearchSubmit(event) {
         event.preventDefault(); // Prevents the page from reloading on submit
-                        
+
         // Call the API
         let searchResults = await getSearchResults(searchBarInput, accessToken);
-                
+
         // Process JSON response data into array of tracks
         const searchResultsArray = searchResultsToArray(searchResults);
-        
+
         // Update the array state variable 'fetchedTracks'
         setFetchedTracks(searchResultsArray);
     }
@@ -237,13 +238,8 @@ function App({ urlCode }) {
 
     return (
         <>
-            <div className="nav"><User profileData={profileData}/><h2>JAMMING</h2></div>
-            <div className="searchBar">
-            <form className="search" onSubmit={handleSearchSubmit}>
-                <input required id="searchBar" name="searchBar" type="text" input={searchBarInput} onChange={handleSearchBarInput}></input>
-                <button type="submit">Find Track</button>                
-            </form>
-            </div>
+            <Nav profileData={profileData} />
+            <SearchForm handleSearchSubmit={handleSearchSubmit} searchBarInput={searchBarInput} handleSearchBarInput={handleSearchBarInput} />
             <div className="main">
                 <SearchResults onSearchBarInputChange={handleSearchBarInput} searchBarInput={searchBarInput} onSubmitSearch={handleSearchSubmit} tracks={fetchedTracks} onAddTrack={addTrackHandler} />
                 <Playlists onNewPlaylistInputChange={handleNewPlaylistInput} newPlaylistInput={newPlaylistInput} onSubmitNewPlaylist={handleNewPlaylistSubmit} playlists={playlists} activeIndex={activeIndex} setActiveIndex={setActiveIndex} onRemoveTrack={removeTrackHandler} onSavePlaylist={handleSavePlaylist} updateCurrentPlaylistName={updateCurrentPlaylistName} saveButtonMsg={saveButtonMsg} />
