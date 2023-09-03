@@ -148,6 +148,12 @@ function App({ urlCode }) {
             playlistId: generateId(),
             tracks: []
         }
+        
+        // When a new playlist is created, make it the currently selected / active playlist
+        setActiveIndex(newPlaylist.playlistId);
+        setCurrentPlaylistName(newPlaylist.playlistName);
+        
+        // Update the playlists array
         setPlaylists((playlists) => [...playlists, newPlaylist]);
     }
 
@@ -191,7 +197,7 @@ function App({ urlCode }) {
                     playlistName: currentPlaylistName,
                     playlistId: playlist.playlistId,
                     tracks: playlist.tracks
-                }
+                }                
                 return currentPlaylist;
             }
             else {
